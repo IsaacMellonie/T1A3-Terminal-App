@@ -23,6 +23,9 @@ You can use your existing gmail account or make a new gmail account depending on
 </ol>
 </li>
 <li>
+In the email_setup.py file, paste your email address and password. This will be used in the main file and without it the emailing function won't work.
+</li>
+<li>
 
 </li>
 </ol>
