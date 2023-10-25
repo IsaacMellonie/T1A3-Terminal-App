@@ -11,13 +11,12 @@ class EmailSend():
         self.email_to = email_to
         self.subject = subject
         self.body_text = body_text
-
-        email_from = my_email
+        
         # email_to = email_to
         # subject = "Parking Receipt"
         # body_text = "This is a test of the new emailing system."
         # message = "Subject: {}\n\n{}".format(subject, body_text)
-
+        email_from = my_email
         password = my_password
 
         simple_email_context = ssl.create_default_context()
