@@ -1,7 +1,11 @@
-import datetime, ssl, smtplib, time, get_user_info, hashlib, email_system
+import datetime, ssl, smtplib, time, hashlib, email_system, get_user_info
+
+# from get_user_info import CreateUser
 from email.message import EmailMessage
+from login_system import signup, login
 from email_setup import my_password, my_email
 # from email_system import EmailSend
+
 
 # Format date and time for display in Terminal
 today_date = datetime.datetime.now()
@@ -37,8 +41,7 @@ while inloop_variable == 0 and 7 <= current_time.hour < 24:
         break
     elif inloop_variable == 3: # to get password
         email_to = input('Please enter your email address: ')
-        # email = input("Enter email: ")
-        with open("credentials.csv", "r") as f:
+        with open("credentials.csv", "r") as f: 
             stored_email, stored_pwd = f.read().split("\n")
             auth_hash = hashlib.md5(stored_pwd).hexdigest()
             auth = auth_hash.digest()
@@ -76,6 +79,10 @@ while register_user == True:
     password = input("Enter password: ")
     conf_pwd = input("Confirm password: ")
     if conf_pwd == password:
+        with open("login_details.csv", "w") as f:
+                f.write(email + "\n" + password)
+        f.close()
+        print("You're now successfully registered.")
         new_user = get_user_info.CreateUser(email, 
                                             password,
                                             input("Please enter your first name: "), 
@@ -84,21 +91,13 @@ while register_user == True:
         user_response = int(input(f"\nAre these details correct?\n{new_user.__dict__}.\n 1 to continue. 2 to try again."))
         if user_response == 1:
             inloop_variable = 0
-            with open("credentials.csv", "w") as f:
+            with open("login_details.csv", "w") as f:
                 f.write(str(new_user.__dict__))
                 f.close()
             print(f"Thanks, {new_user.first}. Now you're ready to buy tickets.") 
         else:
             inloop_variable == 1
             print("Ok, let's try that again.")
-        pass
-        # enc = conf_pwd.encode()
-        # hash1 = hashlib.md5(enc).hexdigest()
-        # with open("credentials.csv", "w") as f:
-        #     f.write(email + "\n" + hash1)
-        #     f.write(hash1)
-        # f.close()
-        # print("You're now successfully registered.")
     else:
         register_user == False
         print("\nPasswords don't match. Please start again.\n")
@@ -110,7 +109,7 @@ else:
     password = input("Enter password: ")
     auth = password.encode()
     auth_hash = hashlib.md5(auth).hexdigest()
-    with open("credentials.csv", "r") as f:
+    with open("login_details.csv", "r") as f:
         stored_email, stored_pwd = f.read().split("\n")
     f.close()
     if email == stored_email and auth_hash == stored_pwd:
