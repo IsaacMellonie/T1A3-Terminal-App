@@ -1,25 +1,51 @@
 import hashlib, time, csv
 
+# class Signup():
+#     def __init__(self, email, pwd, conf_pwd):
+#         self.email = email
+#         self.pwd = pwd
+#         self.conf_pwd = pwd
+
+#     def __call__(self):
+#         email = input("Enter email address: ")
+#         pwd = input("Enter password: ")
+#         conf_pwd = input("Confirm password: ")
+
+#         inloop_variable = 1
+#         while inloop_variable == 1:
+#             if conf_pwd == pwd:
+#                 enc = conf_pwd.encode()
+#                 hash1 = hashlib.md5(enc).hexdigest()
+#                 with open("credentials.csv", "w") as f:
+#                     f.write(email + "\n")
+#                     f.write(hash1)
+#                 f.close()
+#                 print("You're now successfully registered.")
+#             else:
+#                 print("\nPasswords don't match.\n")
+#                 time.sleep(1)
+#                 return
+
 def signup():
-    email = input("Enter email address: ")
-    pwd = input("Enter password: ")
-    conf_pwd = input("Confirm password: ")
-    if conf_pwd == pwd:
-        enc = conf_pwd.encode()
-        hash1 = hashlib.md5(enc).hexdigest()
-        with open("credentials.csv", "w") as f:
-            f.write(email + "\n")
-            f.write(hash1)
-        f.close()
-        print("You're now successfully registered.")
-    else:
-        print("\nPasswords don't match.\n")
-        time.sleep(1)
+        email = input("Enter email address: ")
+        password = input("Enter password: ")
+        conf_pwd = input("Confirm password: ")
+        if conf_pwd == password:
+            enc = conf_pwd.encode()
+            hash1 = hashlib.md5(enc).hexdigest()
+            with open("credentials.csv", "w") as f:
+                f.write(email + "\n" + hash1)
+                f.write(hash1)
+            f.close()
+            print("You're now successfully registered.")
+        else:
+            print("\nPasswords don't match.\n")
+            time.sleep(1)
 
 def log_in():
     email = input("Enter email: ")
-    pwd = input("Enter password: ")
-    auth = pwd.encode()
+    password = input("Enter password: ")
+    auth = password.encode()
     auth_hash = hashlib.md5(auth).hexdigest()
     with open("credentials.csv", "r") as f:
         stored_email, stored_pwd = f.read().split("\n")
@@ -36,7 +62,7 @@ while 1:
     print("3.Exit")
     ch = int(input("Enter your choice: "))
     if ch == 1:
-        signup()
+        signup = signup()
     elif ch == 2:
         log_in()
     elif ch == 3:
