@@ -1,4 +1,4 @@
-import datetime, ssl, smtplib, time, hashlib, email_system, get_user_info, purchase
+import datetime, ssl, smtplib, time, hashlib, email_system, get_user_info
 
 # from get_user_info import CreateUser
 from email.message import EmailMessage
@@ -7,7 +7,7 @@ from email_setup import my_password, my_email
 # from email_system import EmailSend
 
 today_date = datetime.datetime.now()
-formatted_date = today_date.strftime("%d/%m/%Y \n%-I:%M %p")
+formatted_date = today_date.strftime("\n%d/%m/%Y \n%-I:%M %p")
 
 # Get time as int from datetime.datetime
 today_date = datetime.datetime.now()
@@ -34,6 +34,7 @@ def open_menu():
             register()
             break
         elif i == 2: # signin
+            login()
             break
         elif i == 3: # forgot password
             email_to = input('Please enter your email address: ')
@@ -63,18 +64,34 @@ def open_menu():
         else:
             i == 0
 
-def login(email, pwd):
-    with open("login_details.txt", "r") as f:
-        stored_email, stored_pwd = f.read().split("\n")
-    f.close()
-    if email == stored_email and pwd == stored_pwd:
-        print("Logged in Successfully!")
-    else:
-        print("Login failed! \n")
+def login():
+    i = 1
+    while i == 1:
+        email = input("Enter email address: ")
+        pwd = input("Enter password: ")
+        with open("login_details.txt", "r") as f:
+            stored_email, stored_pwd = f.read().split("\n")
+            f.close()
+        if email == stored_email and pwd == stored_pwd:
+            print("Logged in Successfully!")
+            time_date()
+            welcome()
+            open_menu()  
+        else:
+            i == 0
+            answer = int(input("\nLogin failed! Try again?\n1 for yes 2 for no.\n:..."))
+            if answer == 1:
+                i == 1
+            elif answer == 2:
+                time_date()
+                welcome()
+                open_menu() 
+            else:
+                pass
 
 def register():
-    i = 1
-    while i == 1: #and register_user == True:
+    i = 0
+    while i == 0: #and register_user == True:
         email = input("Enter email address: ")
         password = input("Enter password: ")
         conf_pwd = input("Confirm password: ")
@@ -88,16 +105,19 @@ def register():
                                                 input("Please enter your first name: "), 
                                                 input("Please enter your last name: "), 
                                                 input("Please enter your car registration number: "))
-            i = int(input(f"\nAre these details correct?\n{new_user.user_info}.\n1 to continue. 2 to try again."))
+            i = int(input(f"\nAre these details correct?\n{new_user.__dict__}.\n1 to continue. 2 to try again."))
             if i == 1:
                 with open("login_details.csv", "w") as f:
                     f.write(str(new_user.__dict__))
                     f.close()
                 print(f"Thanks, {new_user.first}. Now you're ready to buy tickets.")
-                break
-                # purchase.payments()
-            else:
+                return
+            while i == 2:
                 print("Ok, let's try that again.")
+                
+            else:
+                print("Sorry, I'm not sure what you meant.")
+                pass
         else:
             print("\nPasswords don't match. Please start again.\n")
             time.sleep(1)

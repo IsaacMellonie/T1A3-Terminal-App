@@ -17,7 +17,7 @@ def signup():
 def login(email, pwd):
     with open("login_details.txt", "r") as f:
         stored_email, stored_pwd = f.read().split("\n")
-    f.close()
+        f.close()
     if email == stored_email and pwd == stored_pwd:
         print("Logged in Successfully!")
     else:
