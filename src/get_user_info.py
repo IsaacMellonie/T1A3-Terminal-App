@@ -11,6 +11,8 @@ class CreateUser:
         print(f"{self.password}")
         print(f"{self.first}")
         print(f"{self.last}")
+        print(f"{self.rego}")
+        return
 
         # with open("credentials.csv", "w") as f:
         #     f.write(user_info.__dict__)
