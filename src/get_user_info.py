@@ -12,9 +12,9 @@ class CreateUser:
         print(f"{self.first}")
         print(f"{self.last}")
 
-        with open("credentials.csv", "w") as f:
-            f.write(user_info.__dict__)
-        f.close()
-        print("You're now successfully registered.")
+        # with open("credentials.csv", "w") as f:
+        #     f.write(user_info.__dict__)
+        # f.close()
+        # print("You're now successfully registered.")
 
 

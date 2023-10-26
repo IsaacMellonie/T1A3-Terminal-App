@@ -14,9 +14,7 @@ def signup():
     else:
         print("Password is not same as above! \n")
 
-def login():
-    email = input("Enter email: ")
-    pwd = input("Enter password: ")
+def login(email, pwd):
     with open("login_details.txt", "r") as f:
         stored_email, stored_pwd = f.read().split("\n")
     f.close()

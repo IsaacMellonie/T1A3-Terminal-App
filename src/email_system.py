@@ -12,10 +12,10 @@ class EmailSend():
         self.subject = subject
         self.body_text = body_text
         
-        # email_to = email_to
-        # subject = "Parking Receipt"
-        # body_text = "This is a test of the new emailing system."
-        # message = "Subject: {}\n\n{}".format(subject, body_text)
+        email_to = email_to
+        subject = subject
+        body_text = body_text
+        message = "Subject: {}\n\n{}".format(subject, body_text)
         email_from = my_email
         password = my_password
 
@@ -30,7 +30,7 @@ class EmailSend():
 
             print()
             print(f"Sending email from - {email_from}")
-            parking_server.sendmail(email_from, email_to, body_text)
+            parking_server.sendmail(email_from, email_to, message)
             print(f"Email sent to - {email_to}")
 
         except Exception as e:
