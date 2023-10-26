@@ -1,6 +1,5 @@
 import hashlib, csv
 
-
 def signup():
     email = input("Enter email address: ")
     pwd = input("Enter password: ")

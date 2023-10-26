@@ -4,6 +4,7 @@ import datetime, ssl, smtplib, time, hashlib, email_system, get_user_info
 from email.message import EmailMessage
 from login_system import signup, login
 from email_setup import my_password, my_email
+from purchase import GetTime
 # from email_system import EmailSend
 
 today_date = datetime.datetime.now()
@@ -59,7 +60,7 @@ def open_menu():
             i == 0
     else:
         if i == 0:
-            int(input("""\nService hours are closed from 7:00pm to 7:00am.\nTo update your user details press 1\n:..."""))
+            int(input("""Service hours are closed from 7:00pm to 7:00am.\nTo update your user details press 1\n:..."""))
             # log_in()
         else:
             i == 0
@@ -122,6 +123,16 @@ def register():
             print("\nPasswords don't match. Please start again.\n")
             time.sleep(1)
 
+def get_ticket():
+    input("Please enter a fake 16 digit credit card number:")
+    input("Please enter a fake expiry date e.g. MM/YY:")
+    GetTime(round(int(input("Please enter the amount of minutes you'd like to purchase.\nMax is 120 mins.\nMin is 5 mins."))))
+    print("\nThank you. Have a great day.")
+
+
+
+ 
+#get_ticket()
 time_date()
 welcome()
 open_menu()
