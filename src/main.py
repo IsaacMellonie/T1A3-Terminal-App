@@ -1,9 +1,11 @@
-import datetime, ssl, smtplib, time, hashlib, email_system, get_user_info
+import datetime, ssl, smtplib, time, hashlib, email_system, get_user_info, re
 from email.message import EmailMessage
 from login_system import signup, login
 from email_setup import my_password, my_email
 from purchase import GetTime
 
+def is_email_valid (email):
+    return bool(re.match(r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$", email))
 
 # Format date and time for display in Terminal
 def time_date():
@@ -120,23 +122,22 @@ def login():
             stored_email, stored_pwd = f.read().split("\n")
             f.close()
         if email == stored_email and pwd == stored_pwd:
-            print("Logged in Successfully!")
-            get_ticket()
-            time_date()
-            welcome()
-            open_menu()  
+            print("Logged in Successfully!\nYou can now buy a ticket.")
+            time.sleep(1)
+            get_ticket() 
         else:
             i == 0
             answer = int(input("\nLogin failed! Try again?\n1 for yes 2 for no.\n:..."))
             if answer == 1:
                 i == 1
-            else answer == 2:
+            elif answer == 2:
                 time_date()
                 welcome()
                 open_menu() 
             try:
                 pass
             except Exception:
+                print("Please enter a number value 1 or 2.")
 
 
 def register():

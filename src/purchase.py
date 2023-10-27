@@ -16,5 +16,3 @@ class GetTime():
         new_time = now + timedelta(minutes = time)
         formatted_date = new_time.strftime("-----------\n%d/%m/%Y \n%-I:%M %p\n-----------")
         print(f"Your purchase will expire on\n{formatted_date}")
-
-GetTime(20)
