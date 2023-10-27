@@ -5,21 +5,21 @@ from email.message import EmailMessage
 from login_system import signup, login
 from email_setup import my_password, my_email
 from purchase import GetTime
-# from email_system import EmailSend
 
-today_date = datetime.datetime.now()
-formatted_date = today_date.strftime("\n%d/%m/%Y \n%-I:%M %p")
-
-# Get time as int from datetime.datetime
-today_date = datetime.datetime.now()
-current_time = datetime.datetime.now()
-current_time.hour
 
 # Format date and time for display in Terminal
 def time_date():
+    today_date = datetime.datetime.now()
+    formatted_date = today_date.strftime("\n%d/%m/%Y \n%-I:%M %p")
+    # Get time as int from datetime.datetime
+    today_date = datetime.datetime.now()
+    current_time = datetime.datetime.now()
+    current_time.hour
     print(formatted_date)
+
 # Display welcome menu upon opening the app
 def welcome():
+    current_time = datetime.datetime.now()
     if current_time.hour < 12:
         print("Good morning!\n")
     elif 12 <= current_time.hour < 18:
@@ -28,6 +28,7 @@ def welcome():
         print("Good evening!\n")
 
 def open_menu():
+    current_time = datetime.datetime.now()
     i = 0
     while i == 0 and 7 <= current_time.hour < 19:
         i = int(input("Welcome to the Parking Pal App\n\nPress 1 to register.\nPress 2 to signin.\nPress 3 if you forgot your password.\nPress 4 to exit.\n"))
@@ -124,14 +125,22 @@ def register():
             time.sleep(1)
 
 def get_ticket():
-    input("Please enter a fake 16 digit credit card number:")
-    input("Please enter a fake expiry date e.g. MM/YY:")
-    GetTime(round(int(input("Please enter the amount of minutes you'd like to purchase.\nMax is 120 mins.\nMin is 5 mins."))))
-    print("\nThank you. Have a great day.")
+        while True:
+            user_input = 1
+            cc =  int(input("Please enter a fake 16 digit credit card number:"))
+            print("You entered:", cc)
+            if len(cc) != 16 or cc != type(int):
+                user_input = input("Credit card must be 16 numbers. Try again? 1 for yes 2 for no.")
+            elif ValueError:
+                print("Numbers only, please.")
+            else:
+                print("Looks good")
+                input("Please enter a fake expiry date e.g. MM/YY:")
+                GetTime(round(int(input("Please enter the amount of minutes you'd like to purchase.\nMax is 120 mins.\nMin is 5 mins."))))
+                print("\nThank you. Have a great day.")
 
 
 
- 
 #get_ticket()
 time_date()
 welcome()

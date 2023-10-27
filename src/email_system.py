@@ -2,10 +2,9 @@ import ssl, smtplib
 from email.message import EmailMessage
 from email_setup import my_password, my_email
 
-smtp_port = 587
-smtp_server = "smtp.gmail.com"
-
 class EmailSend():
+    smtp_port = 587
+    smtp_server = "smtp.gmail.com"
     def __init__(self, email_to, subject, body_text):
         self.email_to = email_to
         self.subject = subject
