@@ -82,17 +82,34 @@ def get_ticket():
             print("You entered:", cc)
             while True:
                     expiry_month = int(input("Please enter a 2 digit month (e.g. MM):"))
-                    if type(expiry_month) == int:
+                    if type(expiry_month) == int and len(expiry_month) == 2:
                         expiry_year = int(input("Please enter a 2 digit year (e.g. YY):"))
-                        if type(expiry_year) == int:
+                        if type(expiry_year) == int and len(expiry_year) == 2:
                             print("Thank you.")
+                            minutes = int(input("Please enter the amount of minutes you'd like to purchase.\nMax is 120 mins. Min is 5 mins: "))
+                            answer = int(input(f"Is this the corect amount of minutes? {minutes}\n1 for yes or 2 for no."))
+                            if answer == 1:
+                                print("You havea total of {minutes}")
+                                GetTime(minutes)
+                                # Get the user details from login_details.csv and send the receipt of purchase
+                            else:
+                                print("Ok, let's try again!")
+                        try:
+                            expiry_month = int
+                        except ValueError:
+                            print("Sorry, please enter numbers only in the correct format.")
+                            continue
+                    try:
+                        expiry_month = int
+                    except ValueError:
+                        print("Sorry, please enter numbers only in the correct format.")
+                        continue
                     else:
-                        print(" Please enter in the correct format (e.g 12):")
-
-                    minutes = GetTime(int(input("Please enter the amount of minutes you'd like to purchase.\nMax is 120 mins. Min is 5 mins: ")))
-
-                    print("\nThank you. Have a great day.")
-                    break
+                        print("\nThank you. Have a great day!")
+                        time_date()
+                        welcome()
+                        open_menu()
+                    
     
 def login():
     i = 1
@@ -113,12 +130,14 @@ def login():
             answer = int(input("\nLogin failed! Try again?\n1 for yes 2 for no.\n:..."))
             if answer == 1:
                 i == 1
-            elif answer == 2:
+            else answer == 2:
                 time_date()
                 welcome()
                 open_menu() 
-            else:
+            try:
                 pass
+            except Exception:
+
 
 def register():
     i = 0
