@@ -5,27 +5,7 @@ from email_setup import my_password, my_email
 from purchase import GetTime
 
 
-def create_csv():
-    records_filename = "login_details_enhanced.csv"
-    def create_records_csv(records_filename):
-        # Check if the file already exists
-        if not os.path.exists(records_filename):
-            # Create and write the header to the csv file
-            with open(records_filename, 'w', newline="") as file:
-                csvwriter = csv.writer(file)
-                print("Creating a header row for the file")
-                csvwriter.writerow([
-                    "email",
-                    "password", 
-                    "first", 
-                    "last", 
-                    "rego", 
-                    "ticket",
-                ])
-                print(f"Created a .CSV file to store employee data named {records_filename}")
-        else:
-            pass
-    create_records_csv(records_filename)
+
 
 # Format date and time for display in Terminal
 def time_date():
@@ -103,33 +83,46 @@ def get_ticket():
     time.sleep(1)
     print("You entered:", cc)
     valid_card = 1
-    while True:
+    valid_month = 0
+    while valid_month == 0:
+        try:
             expiry_month = int(input("Please enter a 2 digit month (e.g. MM):"))
-            if type(expiry_month) == int and len(expiry_month) == 2:
-                expiry_year = int(input("Please enter a 2 digit year (e.g. YY):"))
-                if type(expiry_year) == int and len(expiry_year) == 2:
-                    print("Thank you.")
-                    minutes = int(input("Please enter the amount of minutes you'd like to purchase.\nMax is 120 mins. Min is 5 mins: "))
-                    answer = int(input(f"Is this the corect amount of minutes? {minutes}\n1 for yes or 2 for no."))
-                    if answer == 1:
-                        print("You havea total of {minutes}")
-                        GetTime(minutes)
-                        # Get the user details from login_details.csv and send the receipt of purchase
-                    else:
-                        print("Ok, let's try again!")
-                try:
-                    expiry_month = int
-                except ValueError:
-                    print("Sorry, please enter numbers only in the correct format.")
-                    continue
-            try:
-                expiry_month = int
-            except ValueError:
-                print("Sorry, please enter numbers only in the correct format.")
+            if len(str(expiry_month)) == 2:
+                valid_month = 1
                 continue
             else:
-                print("\nThank you. Have a great day!")
-                return minutes
+                print("Must be 2 numbers long.")
+        except ValueError:
+            print("Numbers only, please.")
+            continue
+    time.sleep(1)
+    print("You entered:", expiry_month)
+    valid_month = 1
+    valid_year = 0
+    while valid_year == 0:
+        try:
+            expiry_year = int(input("Please enter a 2 digit year (e.g. YY):"))
+            if len(str(expiry_month)) == 2:
+                valid_year = 1
+                continue
+            else:
+                print("Must be 2 numbers long.")
+        except ValueError:
+            print("Numbers only, please.")
+            continue
+    time.sleep(1)
+    print("You entered:", expiry_year)
+    valid_year = 1
+    print("Thank you.")
+    minutes = int(input("Please enter the amount of minutes you'd like to purchase.\nMax is 120 mins. Min is 5 mins: "))
+    answer = int(input(f"Is this the correct amount of minutes? {minutes}\n1 for yes or 2 for no."))
+    if answer == 1:
+        print("You havea total of {minutes}")
+        GetTime(minutes)
+        # Get the user details from login_details.csv and send the receipt of purchase
+    else:
+        print("\nThank you. Have a great day!")
+        return minutes
                     
 def login():
     i = 1
@@ -175,7 +168,7 @@ def register():
         password = input("Enter password: ")
         conf_pwd = input("Confirm password: ")
         if conf_pwd == password:
-            with open("login_details.csv", "w") as f: # Save details as a list instead.
+            with open("login_details.txt", "w") as f: # Save details as a list instead.
                     f.write(email + "\n" + password)
             f.close()
             print("You're now successfully registered.")
@@ -215,7 +208,7 @@ def register():
 def loggedin():
     while True:
         try:
-            choice = int(input("To purchase a parking ticket, please enter 1.\nTo log out, please enter 2."))
+            choice = int(input("To buy a ticket enter 1.\nTo log out enter 2."))
             if choice == 1:
                 get_ticket()
             elif choice == 2:
