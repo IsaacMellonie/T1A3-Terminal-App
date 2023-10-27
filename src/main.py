@@ -1,6 +1,4 @@
 import datetime, ssl, smtplib, time, hashlib, email_system, get_user_info
-
-# from get_user_info import CreateUser
 from email.message import EmailMessage
 from login_system import signup, login
 from email_setup import my_password, my_email
@@ -11,7 +9,6 @@ from purchase import GetTime
 def time_date():
     today_date = datetime.datetime.now()
     formatted_date = today_date.strftime("\n%d/%m/%Y \n%-I:%M %p")
-    # Get time as int from datetime.datetime
     today_date = datetime.datetime.now()
     current_time = datetime.datetime.now()
     current_time.hour
@@ -27,6 +24,7 @@ def welcome():
     else:
         print("Good evening!\n")
 
+# Main menu that appears when opening the application
 def open_menu():
     current_time = datetime.datetime.now()
     i = 0
@@ -66,6 +64,36 @@ def open_menu():
         else:
             i == 0
 
+# Function to buy tickets after the user has logged in. They'll have to enter a 16 digit credit card number and expiry date.
+def get_ticket():
+    while True:
+            cc = input("Please enter a fake 16 digit credit card number: ")
+            if len(cc) != 16:
+                print("Credit card must be 16 digits. Try again?")
+                choice = input("1 for yes, 2 for no: ")
+                if choice == '2':
+                    break
+            try:
+                cc = int(cc)
+            except ValueError:
+                print("Numbers only, please.")
+                continue
+            time.sleep(1)
+            print("You entered:", cc)
+            while True:
+                    expiry_month = int(input("Please enter a 2 digit month (e.g. MM):"))
+                    if type(expiry_month) == int:
+                        expiry_year = int(input("Please enter a 2 digit year (e.g. YY):"))
+                        if type(expiry_year) == int:
+                            print("Thank you.")
+                    else:
+                        print(" Please enter in the correct format (e.g 12):")
+
+                    minutes = GetTime(int(input("Please enter the amount of minutes you'd like to purchase.\nMax is 120 mins. Min is 5 mins: ")))
+
+                    print("\nThank you. Have a great day.")
+                    break
+    
 def login():
     i = 1
     while i == 1:
@@ -76,6 +104,7 @@ def login():
             f.close()
         if email == stored_email and pwd == stored_pwd:
             print("Logged in Successfully!")
+            get_ticket()
             time_date()
             welcome()
             open_menu()  
@@ -113,6 +142,8 @@ def register():
                     f.write(str(new_user.__dict__))
                     f.close()
                 print(f"Thanks, {new_user.first}. Now you're ready to buy tickets.")
+                time.sleep(1)
+                loggedin()
                 return
             while i == 2:
                 print("Ok, let's try that again.")
@@ -124,24 +155,19 @@ def register():
             print("\nPasswords don't match. Please start again.\n")
             time.sleep(1)
 
-def get_ticket():
-        while True:
-            user_input = 1
-            cc =  int(input("Please enter a fake 16 digit credit card number:"))
-            print("You entered:", cc)
-            if len(cc) != 16 or cc != type(int):
-                user_input = input("Credit card must be 16 numbers. Try again? 1 for yes 2 for no.")
-            elif ValueError:
-                print("Numbers only, please.")
-            else:
-                print("Looks good")
-                input("Please enter a fake expiry date e.g. MM/YY:")
-                GetTime(round(int(input("Please enter the amount of minutes you'd like to purchase.\nMax is 120 mins.\nMin is 5 mins."))))
-                print("\nThank you. Have a great day.")
+def loggedin():
+    while True:
+        try:
+            choice = int(input("To purchase a parking ticket, please enter 1.\nTo log out, please enter 2."))
+            if choice == 1:
+                get_ticket()
+            elif choice == 2:
+                time_date()
+                welcome()
+                open_menu()
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")
 
-
-
-#get_ticket()
 time_date()
 welcome()
 open_menu()
