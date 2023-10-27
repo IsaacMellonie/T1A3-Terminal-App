@@ -4,9 +4,6 @@ from login_system import signup, login
 from email_setup import my_password, my_email
 from purchase import GetTime
 
-def is_email_valid (email):
-    return bool(re.match(r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$", email))
-
 # Format date and time for display in Terminal
 def time_date():
     today_date = datetime.datetime.now()
@@ -139,11 +136,21 @@ def login():
             except Exception:
                 print("Please enter a number value 1 or 2.")
 
+def is_email_valid (email):
+    return bool(re.match(r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$", email))
 
-def register():
-    i = 0
-    while i == 0: #and register_user == True:
+def get_valid_email():
+    while True:
         email = input("Enter email address: ")
+        if is_email_valid(email):
+            return email
+        else:
+            print("Not a valid email address. Try again.")
+
+# Register the user email password and other details
+def register():
+    email = get_valid_email()
+    while True:
         password = input("Enter password: ")
         conf_pwd = input("Confirm password: ")
         if conf_pwd == password:
@@ -151,12 +158,20 @@ def register():
                     f.write(email + "\n" + password)
             f.close()
             print("You're now successfully registered.")
+            time.sleep(1)
+
             new_user = get_user_info.CreateUser(email, 
                                                 password,
                                                 input("Please enter your first name: "), 
                                                 input("Please enter your last name: "), 
                                                 input("Please enter your car registration number: "))
-            i = int(input(f"\nAre these details correct?\n{new_user.__dict__}.\n1 to continue. 2 to try again."))
+            
+            user_info = new_user.__dict__
+            print("Here are your user details:\n")
+            for key, value in user_info.items():
+                print(f"{value}")
+            i = int(input(f"\nAre these details correct?\n1 to continue.\n2 to try again: "))
+
             if i == 1:
                 with open("login_details.csv", "w") as f:
                     f.write(str(new_user.__dict__))
@@ -165,15 +180,18 @@ def register():
                 time.sleep(1)
                 loggedin()
                 return
-            while i == 2:
+            
+            elif i == 2:
                 print("Ok, let's try that again.")
                 
             else:
                 print("Sorry, I'm not sure what you meant.")
                 pass
         else:
-            print("\nPasswords don't match. Please start again.\n")
+            print("\nPasswords don't match. Please try again.\n")
             time.sleep(1)
+
+
 
 def loggedin():
     while True:
