@@ -126,17 +126,29 @@ def get_ticket():
             continue
     time.sleep(1)
     print("You entered:", expiry_year)
-    valid_year = 1
     print("Thank you.")
-    minutes = int(input("Please enter the amount of minutes you'd like to purchase.\nMax is 120 mins. Min is 5 mins: "))
-    answer = int(input(f"Is this the correct amount of minutes? {minutes}\n1 for yes or 2 for no."))
-    GetTime(answer)
-    if answer == 1:
-        GetTime(minutes) # Get the user details from login_details.csv and send the receipt of purchase
-    else:
-        print("\nThank you. Have a great day!")
-        return minutes
-                    
+    valid_year = 1
+    valid_minutes = 0
+    while valid_minutes == 0:
+        try:
+            minutes = int(input("Please enter the amount of minutes you'd like to purchase.\nMax purchase is 120 mins. Min purchase is 5 mins: "))
+            if minutes == type(int) and minutes >= 1:
+                try:
+                    answer = int(input(f"Is this the correct amount of minutes? {minutes}\n1 for yes or 2 for no."))
+                    if answer == 1:
+                        valid_minutes = 1
+                        continue
+                    else:
+                        print("\nThank you. Have a great day!")
+                        return minutes
+                except ValueError:
+                    print("Numbers only, please.")
+                    pass
+        except ValueError:
+            print("Numbers only, please.")
+            continue 
+    GetTime(minutes) # Get the user details from login_details.csv and send the receipt of purchase
+
 def login():
     i = 1
     while i == 1:
@@ -220,7 +232,7 @@ def register():
 
 def loggedin():
     while True:
-        try:
+        # try:
             choice = int(input("To buy a ticket enter 1.\nTo log out enter 2."))
             if choice == 1:
                 get_ticket()
@@ -228,8 +240,9 @@ def loggedin():
                 time_date()
                 welcome()
                 open_menu()
-        except ValueError:
-            print("Invalid input. Please enter a valid number.")
+        # except ValueError:
+        #     print("Invalid input. Please enter a valid number.")
+        # except 
 
 time_date()
 welcome()
