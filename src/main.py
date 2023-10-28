@@ -3,6 +3,7 @@ from email.message import EmailMessage
 from login_system import signup, login
 from email_setup import my_password, my_email
 from purchase import GetTime
+from create_csv import create_csv
 
 # Format date and time for display in Terminal
 def time_date():
@@ -56,12 +57,13 @@ def open_menu():
                             elif a == 2:
                                 register()
                             else:
-                                open_menu()
+                                intro()
+                                break
                         except ValueError:
                             print("Numbers only, please.")
                         continue
                     else:
-                        print("Thanks you!")
+                        print("Thanks!")
                         time_date()
                         welcome()
                         open_menu()
@@ -73,10 +75,9 @@ def open_menu():
             print("\nSorry, I don't recognise that input. Please try again.\n")
             time.sleep(1)
             i == 0
-    else:
+    else: # Not in service at these hours
         if i == 0:
             int(input("""Service hours are closed from 7:00pm to 7:00am.\nTo update your user details press 1\n:..."""))
-            # log_in()
         else:
             i == 0
 
@@ -94,7 +95,7 @@ def get_ticket():
         except ValueError:
             print("Numbers only, please.")
             continue
-    time.sleep(1)
+    time.sleep(0.5)
     print("You entered:", cc)
     valid_card = 1
     valid_month = 0
@@ -109,7 +110,7 @@ def get_ticket():
         except ValueError:
             print("Numbers only, please.")
             continue
-    time.sleep(1)
+    time.sleep(0.5)
     print("You entered:", expiry_month)
     valid_month = 1
     valid_year = 0
@@ -124,30 +125,29 @@ def get_ticket():
         except ValueError:
             print("Numbers only, please.")
             continue
-    time.sleep(1)
+    time.sleep(0.5)
     print("You entered:", expiry_year)
-    print("Thank you.")
+    print("Thank you. That looks good.")
     valid_year = 1
     valid_minutes = 0
     while valid_minutes == 0:
         try:
             minutes = int(input("Please enter the amount of minutes you'd like to purchase.\nMax purchase is 120 mins. Min purchase is 5 mins: "))
-            if minutes == type(int) and minutes >= 1:
-                try:
-                    answer = int(input(f"Is this the correct amount of minutes? {minutes}\n1 for yes or 2 for no."))
-                    if answer == 1:
-                        valid_minutes = 1
-                        continue
-                    else:
-                        print("\nThank you. Have a great day!")
-                        return minutes
-                except ValueError:
-                    print("Numbers only, please.")
-                    pass
+            if minutes >= 1:
+                valid_minutes = 1
+                continue
+            else:
+                print("Enter a number greater than 1.")
         except ValueError:
             print("Numbers only, please.")
-            continue 
-    GetTime(minutes) # Get the user details from login_details.csv and send the receipt of purchase
+            continue
+    valid_minutes = 1
+    details = get_user_info.CreateUser()
+    receipt = GetTime(minutes)
+    email_system.EmailSend("email", receipt,  details)
+    time.sleep(3)
+    intro()
+
 
 def login():
     i = 1
@@ -244,7 +244,13 @@ def loggedin():
         #     print("Invalid input. Please enter a valid number.")
         # except 
 
-time_date()
-welcome()
-open_menu()
+def intro():
+    time_date()
+    welcome()
+    open_menu()
+
+intro ()
+# time_date()
+# welcome()
+# open_menu()
 

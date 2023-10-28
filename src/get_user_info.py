@@ -14,9 +14,3 @@ class CreateUser:
         print(f"{self.rego}")
         return
 
-        # with open("credentials.csv", "w") as f:
-        #     f.write(user_info.__dict__)
-        # f.close()
-        # print("You're now successfully registered.")
-
-

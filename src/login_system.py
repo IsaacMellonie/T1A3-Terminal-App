@@ -23,18 +23,5 @@ def login(email, pwd):
         print("Login failed! \n")
 
 
-# while 1:
-#     print()
-#     print("1.Signup")
-#     print("2.Login")
-#     print("3.Exit")
-#     ch = int(input("Enter your choice: "))
-#     if ch == 1:
-#         signup()
-#     elif ch == 2:
-#         login()
-#     elif ch == 3:
-#         break
-#     else:
-#         print("Wrong Choice!")
+
 
