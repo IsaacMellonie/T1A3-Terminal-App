@@ -79,13 +79,8 @@ Your Password is {stored_pwd}.""")
                                 intro()
                                 break
                         except ValueError:
-                            print("Numbers only, please.")
-                        continue
-                    else:
-                        print("Thanks!")
-                        time_date()
-                        welcome()
-                        open_menu()
+                            print("That doesn't look right")
+                            continue
         elif i == 4:  # exit the program
             print("\nBye!\n")
             break
@@ -96,8 +91,19 @@ Please try again.\n""")  # error message
             i == 0
     else:  # Not in service at these hours
         if i == 0:
-            int(input("""Service hours are closed from 7:00pm to 7:00am.
-To update your user details press 1\n:..."""))
+            i = int(input("""Service hours are closed from 7:00pm to 7:00am.
+Enter 1 to register. Enter 2 to quit.\n:..."""))
+            while True:
+                try:
+                    if i == 1:
+                        register_after_hours()
+                    else:
+                        print("Goodbye!")
+                        quit()
+                        break
+                except ValueError:
+                    print("Must enter a number.")
+                    continue
         else:
             i == 0
 
@@ -201,8 +207,7 @@ def login():
 
 
 def is_email_valid(email):
-    return bool(re.match(r"""
-^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$""", email))
+    return bool(re.match(r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$", email))
 
 
 def get_valid_email():
@@ -228,18 +233,15 @@ def register():
     while True:
         new_user = get_user_info.CreateUser(email,
                                             password,
-                                            input("""
-Please enter your first name: """),
-                                            input("""
-Please enter your last name: """),
-                                            input("""
-Please enter your car registration number: """))
+                                            input("Please enter first name: "),
+                                            input("Please enter last name: "),   
+                                            input("Please enter registration number: "))
         user_info = new_user.__dict__
         print("Here are your user details:\n")
         for key, value in user_info.items():
             print(f"{value}")
         i = int(input(f"""
-\nAre these details correct?\n1 to continue.\n2 to try again: """))
+Are these details correct?\n1 to continue.\n2 to try again: """))
         if i == 1:
             with open("login_details.csv", "w") as f:
                 f.write(str(new_user.__dict__))
@@ -247,6 +249,46 @@ Please enter your car registration number: """))
             print(f"Thanks, {new_user.first}. Let's buy a parking ticket.")
             time.sleep(1)
             loggedin()
+            return
+        elif i == 2:
+            print("Ok, let's try that again.")
+            time.sleep(1)
+        else:
+            print("Sorry, I'm not sure what you meant.")
+            pass
+    else:
+        print("\nPasswords don't match. Please try again.\n")
+        time.sleep(1)
+
+
+def register_after_hours():
+    email = get_valid_email()
+    password = input("Enter password: ")
+    conf_pwd = input("Confirm password: ")
+    if conf_pwd == password:
+        with open("login_details.txt", "w") as f:
+            f.write(email + "\n" + password)
+        f.close()
+        print("You're now successfully registered.")
+        time.sleep(1)
+    while True:
+        new_user = get_user_info.CreateUser(email,
+                                            password,
+                                            input("Please enter first name: "),
+                                            input("Please enter last name: "),   
+                                            input("Please enter registration number: "))
+        user_info = new_user.__dict__
+        print("Here are your user details:\n")
+        for key, value in user_info.items():
+            print(f"{value}")
+        i = int(input(f"""
+Are these details correct?\n1 to continue.\n2 to try again: """))
+        if i == 1:
+            with open("login_details.csv", "w") as f:
+                f.write(str(new_user.__dict__))
+                f.close()
+            print(f"Thanks, {new_user.first}.")
+            intro()
             return
         elif i == 2:
             print("Ok, let's try that again.")

@@ -21,9 +21,8 @@ class GetTime():
         total = tax + charge
         total_formatted = "{:.2f}".format(total)
         now = datetime.datetime.now()
-        new_time = now+timedelta(minutes=time)
-        formatted_date = new_time.strftime(f"""
---------------
+        new_time = now + timedelta(minutes=time)
+        formatted_date = new_time.strftime(f"""--------------
 --------------
 TOTAL
 {time} minutes
@@ -34,6 +33,6 @@ VALID UNTIL
 
 CHARGE: ${total_formatted}
 --------------
---------------")
-print(f"{formatted_date}
-Thank you!""")
+--------------""")
+        print(f"{formatted_date}\nThank you!")
+
