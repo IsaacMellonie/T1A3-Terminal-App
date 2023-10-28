@@ -4,9 +4,6 @@ from login_system import signup, login
 from email_setup import my_password, my_email
 from purchase import GetTime
 
-
-
-
 # Format date and time for display in Terminal
 def time_date():
     today_date = datetime.datetime.now()
@@ -30,27 +27,44 @@ def welcome():
 def open_menu():
     current_time = datetime.datetime.now()
     i = 0
-    while i == 0 and 7 <= current_time.hour < 24:
+    while i == 0 and 7 <= current_time.hour < 19:
         i = int(input("Welcome to the Parking Pal App\n\nPress 1 to register.\nPress 2 to signin.\nPress 3 if you forgot your password.\nPress 4 to exit.\n"))
         if i == 1: # register
             register()
-            break
         elif i == 2: # signin
             login()
-            break
         elif i == 3: # forgot password
-            email_to = input('Please enter your email address: ')
-            with open("login_details.txt", "r") as f: 
-                stored_email, stored_pwd = f.read().split("\n")
-            f.close()
-            if email_to == stored_email:
-                subject = "Forgot Password"
-                body_text = (f"Hi, this is the Parking Pal App. Your Password is {stored_pwd}.")
-                email_system.EmailSend(email_to, subject, body_text)
-                print(f"Email has been sent to {email_to} with your password.")
-                break
-            else:
-                print("Login failed. Try again. \n")
+            while True:
+                email_to = input('Please enter your email address: ')
+                with open("login_details.txt", "r") as f: 
+                    stored_email, stored_pwd = f.read().split("\n")
+                f.close()
+                if email_to == stored_email:
+                    i = 0
+                    subject = "Forgot Password"
+                    body_text = (f"Hi, this is the Parking Pal App. Your Password is {stored_pwd}.")
+                    email_system.EmailSend(email_to, subject, body_text)
+                    print(f"Email has been sent to {email_to} with your password.")
+                    continue
+                else:
+                    a = int(input("That's not the email we have on record. 1 to try again, 2 to reregister 3 to return to main menu:...\n"))
+                    while True:
+                        try:
+                            if a == 1:
+                                print("Let's try again.")
+                                break
+                            elif a == 2:
+                                register()
+                            else:
+                                open_menu()
+                        except ValueError:
+                            print("Numbers only, please.")
+                        continue
+                    else:
+                        print("Thanks you!")
+                        time_date()
+                        welcome()
+                        open_menu()
         elif i == 4: # exit the program
             print("\nBye!\n")
             break
@@ -102,7 +116,7 @@ def get_ticket():
     while valid_year == 0:
         try:
             expiry_year = int(input("Please enter a 2 digit year (e.g. YY):"))
-            if len(str(expiry_month)) == 2:
+            if len(str(expiry_year)) == 2:
                 valid_year = 1
                 continue
             else:
@@ -116,6 +130,7 @@ def get_ticket():
     print("Thank you.")
     minutes = int(input("Please enter the amount of minutes you'd like to purchase.\nMax is 120 mins. Min is 5 mins: "))
     answer = int(input(f"Is this the correct amount of minutes? {minutes}\n1 for yes or 2 for no."))
+    GetTime(answer)
     if answer == 1:
         print("You havea total of {minutes}")
         GetTime(minutes)
@@ -196,6 +211,7 @@ def register():
         
         elif i == 2:
             print("Ok, let's try that again.")
+            time.sleep(1)
             
         else:
             print("Sorry, I'm not sure what you meant.")
