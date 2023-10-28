@@ -97,7 +97,7 @@ Please try again.\n""")  # error message
     else:
         while True:
             try:
-                i = int(input("""Service hours are closed from 7:00pm to 7:00am.
+                i = int(input("""Service is closed from 7:00pm to 7:00am.
 Enter 1 to register. Enter 2 to quit.\n:..."""))
                 if i == 1:
                     register()
@@ -207,50 +207,9 @@ def login():
                 print("Please enter a number value 1 or 2.")
 
 
-# Register the user email password and other details
-# def register():
-#     email = get_valid_email()
-#     password = input("Enter password: ")
-#     conf_pwd = input("Confirm password: ")
-#     if conf_pwd == password:
-#         with open("login_details.txt", "w") as f:
-#             f.write(email + "\n" + password)
-#         f.close()
-#         print("You're now successfully registered.")
-#         time.sleep(1)
-#     while True:
-#         new_user = get_user_info.CreateUser(email,
-#                                             password,
-#                                             input("Please enter first name: "),
-#                                             input("Please enter last name: "),   
-#                                             input("Please enter registration number: "))
-#         user_info = new_user.__dict__
-#         print("Here are your user details:\n")
-#         for key, value in user_info.items():
-#             print(f"{value}")
-#         i = int(input(f"""
-# Are these details correct?\n1 to continue.\n2 to try again: """))
-#         if i == 1:
-#             with open("login_details.csv", "w") as f:
-#                 f.write(str(new_user.__dict__))
-#                 f.close()
-#             print(f"Thanks, {new_user.first}. Let's buy a parking ticket.")
-#             time.sleep(1)
-#             loggedin()
-#             return
-#         elif i == 2:
-#             print("Ok, let's try that again.")
-#             time.sleep(1)
-#         else:
-#             print("Sorry, I'm not sure what you meant.")
-#             pass
-#     else:
-#         print("\nPasswords don't match. Please try again.\n")
-#         time.sleep(1)
-
-
 def is_email_valid(email):
-    return bool(re.match(r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$", email))
+    return bool(re.match(r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$",
+                         email))
 
 
 def get_valid_email():
@@ -261,7 +220,8 @@ def get_valid_email():
         else:
             print("Not a valid email address. Try again.")
 
-def validate_password(email): 
+
+def validate_password(email):
     while True:
         password = input("Enter password: ")
         conf_pwd = input("Confirm password: ")
@@ -284,7 +244,7 @@ def register():
         new_user = get_user_info.CreateUser(email,
                                             password,
                                             input("Please enter first name: "),
-                                            input("Please enter last name: "),   
+                                            input("Please enter last name: "),
                                             input("Please enter registration number: "))
         user_info = new_user.__dict__
         print("Here are your user details:\n")
@@ -329,5 +289,3 @@ def intro():
 
 
 intro()
-
-
