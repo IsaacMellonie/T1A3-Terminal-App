@@ -132,9 +132,7 @@ def get_ticket():
     answer = int(input(f"Is this the correct amount of minutes? {minutes}\n1 for yes or 2 for no."))
     GetTime(answer)
     if answer == 1:
-        print("You havea total of {minutes}")
-        GetTime(minutes)
-        # Get the user details from login_details.csv and send the receipt of purchase
+        GetTime(minutes) # Get the user details from login_details.csv and send the receipt of purchase
     else:
         print("\nThank you. Have a great day!")
         return minutes

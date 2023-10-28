@@ -12,7 +12,13 @@ class GetTime():
             time = 5
         elif 120 <= time:
             time = 120
+        charge = time * 0.25
+        tax = time * 0.11
+        total = tax + charge
+        total_formatted = "{:.2f}".format(total)
         now = datetime.datetime.now()
         new_time = now + timedelta(minutes = time)
-        formatted_date = new_time.strftime("-----------\n%d/%m/%Y \n%-I:%M %p\n-----------")
-        print(f"Your purchase will expire on\n{formatted_date}")
+        formatted_date = new_time.strftime(f"--------------\n--------------\nVALID UNTIL\n%d/%m/%Y\n%-I:%M %p\n\nTotal: ${total_formatted}\n--------------\n--------------")
+        print(f"{formatted_date}\nThank you!")
+
+
