@@ -13,4 +13,3 @@ class CreateUser:
         print(f"{self.last}")
         print(f"{self.rego}")
         return
-

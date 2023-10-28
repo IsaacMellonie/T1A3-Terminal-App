@@ -1,4 +1,6 @@
-import hashlib, csv
+import hashlib
+import csv
+
 
 def signup():
     email = input("Enter email address: ")
@@ -13,6 +15,7 @@ def signup():
     else:
         print("Password is not same as above! \n")
 
+
 def login(email, pwd):
     with open("login_details.txt", "r") as f:
         stored_email, stored_pwd = f.read().split("\n")
@@ -21,7 +24,3 @@ def login(email, pwd):
         print("Logged in Successfully!")
     else:
         print("Login failed! \n")
-
-
-
-

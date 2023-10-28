@@ -1,16 +1,17 @@
-import ssl, smtplib
+import ssl
+import smtplib
 from email.message import EmailMessage
 from email_setup import my_password, my_email
 
 smtp_port = 587
 smtp_server = "smtp.gmail.com"
 
+
 class EmailSend():
     def __init__(self, email_to, subject, body_text):
         self.email_to = email_to
         self.subject = subject
         self.body_text = body_text
-        
         email_to = email_to
         subject = subject
         body_text = body_text
@@ -37,5 +38,3 @@ class EmailSend():
 
         finally:
             parking_server.quit()
-
-
