@@ -22,3 +22,4 @@ class GetTime():
         new_time = now + timedelta(minutes = time)
         formatted_date = new_time.strftime(f"--------------\n--------------\nTOTAL\n{time} minutes\n------------\nVALID UNTIL\n%d/%m/%Y\n%-I:%M %p\n\nCHARGE: ${total_formatted}\n--------------\n--------------")
         print(f"{formatted_date}\nThank you!")
+
