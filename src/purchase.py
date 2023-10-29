@@ -3,12 +3,6 @@ from datetime import timedelta
 
 
 class GetTime():
-    today_date = datetime.datetime.now()
-    formatted_date = today_date.strftime("\n%d/%m/%Y \n%-I:%M %p")
-    today_date = datetime.datetime.now()
-    current_time = datetime.datetime.now()
-    current_time.hour
-
     def __init__(self, time):
         if 5 >= time:
             print("Number less than 5. Rounding up.")
@@ -35,4 +29,5 @@ CHARGE: ${total_formatted}
 --------------
 --------------""")
         print(f"{formatted_date}\nThank you!")
+
 

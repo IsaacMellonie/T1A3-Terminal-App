@@ -3,6 +3,7 @@ import smtplib
 from email.message import EmailMessage
 from email_setup import my_password, my_email
 
+
 smtp_port = 587
 smtp_server = "smtp.gmail.com"
 

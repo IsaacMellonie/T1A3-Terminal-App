@@ -9,3 +9,8 @@ login_details.txt
 login_details.csv
 login_details_enhanced.csv
 create_csv.py
+.vscode
+.pytest_cache
+test_calc.py
+test_main.py
+calc_time_date.py
