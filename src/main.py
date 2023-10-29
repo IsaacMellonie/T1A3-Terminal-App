@@ -62,6 +62,85 @@ def open_menu():
             time_date()
             i = int(input("""Welcome to the Parking Pal App\n
     Press 1 to register.
+    Press 2 to sign in.
+    Press 3 if you forgot your password.
+    Press 4 to exit.\n:..."""))
+            
+            while i < 0:
+                print("Please enter a positive number.")
+                i = int(input("Enter 1 to register, or 2 to quit: "))
+            
+            if i == 1:  # register
+                register()
+            elif i == 2:  # sign in
+                login()
+            elif i == 3:  # forgot password
+                while True:
+                    email_to = input('Please enter your email address: ')
+                    with open("login_details.txt", "r") as f:
+                        stored_email, stored_pwd = f.read().split("\n")
+                    f.close()
+                    if email_to == stored_email:
+                        i = 0
+                        subject = "Forgot Password"
+                        body_text = (f"""Hi, this is the Parking Pal App.
+    Your Password is {stored_pwd}.""")
+                        email_system.EmailSend(email_to, subject, body_text)
+                        print(f"""Email has been sent to
+    {email_to} with your password.""")
+                        intro()
+                        break
+                    else:
+                        a = int(input("""That's not the email we have on record.
+    1 to try again, 2 to reregister 3 to return to main menu:...\n"""))
+                        while a == 1 or 2:
+                            try:
+                                if a == 1:
+                                    print("Let's try again.")
+                                    break
+                                elif a == 2:
+                                    register()
+                                else:
+                                    intro()
+                                    break
+                            except ValueError:
+                                ("Enter number 1, 2 or 3.")
+            elif i == 4:  # exit the program
+                print("\nBye!\n")
+                quit()
+            else:
+                print("""\nSorry, I don't recognize that input.
+Please try again.\n""")  # error message
+                time.sleep(1)
+        except ValueError:
+            print("\nOnly numbers accepted.")
+            time.sleep(0.5)
+        else:
+            while True:
+                try:
+                    i = int(input("""Service is closed from 7:00pm to 7:00am.
+    Enter 1 to register. Enter 2 to quit.\n:..."""))
+                    if i == 1:
+                        register()
+                        print("Goodbye!")
+                        quit()
+                    else:
+                        print("Goodbye!")
+                        quit()
+                except ValueError:
+                    print("Must enter a number.")
+                    continue
+
+
+
+# def open_menu():
+    current_time = get_current_time()
+    i = 0
+    while i == 0 and 7 <= current_time.hour < 19:
+        try:
+            time_date()
+            i = int(input("""Welcome to the Parking Pal App\n
+    Press 1 to register.
     Press 2 to signin.
     Press 3 if you forgot your password.
     Press 4 to exit.\n:..."""))
