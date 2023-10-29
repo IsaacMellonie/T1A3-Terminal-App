@@ -60,11 +60,12 @@ def open_menu():
     while i == 0 and 7 <= current_time.hour < 19:
         try:
             time_date()
+            welcome()
             i = int(input("""Welcome to the Parking Pal App\n
-    Press 1 to register.
-    Press 2 to sign in.
-    Press 3 if you forgot your password.
-    Press 4 to exit.\n:..."""))
+Press 1 to register.
+Press 2 to sign in.
+Press 3 if you forgot your password.
+Press 4 to exit.\n:..."""))
             
             while i < 0:
                 print("Please enter a positive number.")
@@ -84,7 +85,7 @@ def open_menu():
                         i = 0
                         subject = "Forgot Password"
                         body_text = (f"""Hi, this is the Parking Pal App.
-    Your Password is {stored_pwd}.""")
+Your Password is {stored_pwd}.""")
                         email_system.EmailSend(email_to, subject, body_text)
                         print(f"""Email has been sent to
     {email_to} with your password.""")
@@ -92,7 +93,7 @@ def open_menu():
                         break
                     else:
                         a = int(input("""That's not the email we have on record.
-    1 to try again, 2 to reregister 3 to return to main menu:...\n"""))
+1 to try again, 2 to reregister 3 to return to main menu:...\n"""))
                         while a == 1 or 2:
                             try:
                                 if a == 1:
@@ -119,7 +120,7 @@ Please try again.\n""")  # error message
             while True:
                 try:
                     i = int(input("""Service is closed from 7:00pm to 7:00am.
-    Enter 1 to register. Enter 2 to quit.\n:..."""))
+Enter 1 to register. Enter 2 to quit.\n:..."""))
                     if i == 1:
                         register()
                         print("Goodbye!")
@@ -131,9 +132,6 @@ Please try again.\n""")  # error message
                     print("Must enter a number.")
                     continue
 
-
-
-# def open_menu():
     current_time = get_current_time()
     i = 0
     while i == 0 and 7 <= current_time.hour < 19:
@@ -205,9 +203,37 @@ Please try again.\n""")  # error message
                     print("Must enter a number.")
                     continue
 
-
-
 def login():
+    while True:
+        email = input("Enter email address: ")
+        pwd = input("Enter password: ")
+
+        try:
+            with open("login_details.txt", "r") as f:
+                stored_email, stored_pwd = f.read().split("\n")
+        except FileNotFoundError:
+            print("Error: File 'login_details.txt' not found.")
+            return  # Exit the function
+
+        if email == stored_email and pwd == stored_pwd:
+            print("Logged in Successfully!\nYou can now buy a ticket.")
+            time.sleep(1)
+            get_ticket()
+            break  # Exit the loop on successful login
+        else:
+            answer = input("\nLogin failed! Try again? (1 for yes, 2 for no): ")
+            try:
+                answer = int(answer)
+                if answer == 1:
+                    continue  # Retry login
+                elif answer == 2:
+                    intro()
+                    break  # Exit the loop on user's choice
+                else:
+                    print("Invalid choice. Please enter 1 or 2.")
+            except ValueError:
+                print("Please enter a number value (1 or 2).")
+
     i = 1
     while i == 1:
         email = input("Enter email address: ")
@@ -239,12 +265,10 @@ def get_ticket():
             cc = int(input("Please enter a 16 digit credit card number: "))
             if len(str(cc)) == 16:
                 valid_card = 1
-                continue
             else:
                 print("Credit card must be 16 digits.")
         except ValueError:
             print("Numbers only, please.")
-            continue
 
     time.sleep(0.5)
     print("You entered:", cc)
@@ -253,17 +277,19 @@ def get_ticket():
     valid_month = 0
     while valid_month == 0:
         try:
-            expiry_month = int(input("""Please enter a 2 digit
-month (e.g. MM): """))
-            if len(str(expiry_month)) == 2:
-                valid_month = 1
-                continue
+            expiry_month = input("Please enter a 2-digit month (e.g., MM): ")
+            
+            if len(expiry_month) == 2 and expiry_month.isdigit():
+                expiry_month = int(expiry_month)
+                if 1 <= expiry_month <= 12:
+                    valid_month = 1
+                else:
+                    print("Invalid input. Please enter a valid 2-digit month between 01 and 12.")
             else:
-                print("Must be 2 numbers long.")
+                print("Invalid input. Please enter a valid 2-digit month in the format '01' to '12'.")
         except ValueError:
             print("Numbers only, please.")
-            continue
-
+        
     time.sleep(0.5)
     print("You entered:", expiry_month)
     valid_month = 1
@@ -271,15 +297,14 @@ month (e.g. MM): """))
     valid_year = 0
     while valid_year == 0:
         try:
-            expiry_year = int(input("Please enter a 2 digit year (e.g. YY):"))
-            if len(str(expiry_year)) == 2:
+            expiry_year = int(input("Please enter a 2-digit year (e.g., YY): "))
+            
+            if len(str(expiry_year)) == 2 and 23 <= expiry_year <= 99:
                 valid_year = 1
-                continue
             else:
-                print("Must be 2 numbers long.")
+                print("Invalid input. Please enter a 2-digit year greater than or equal to 23.")
         except ValueError:
             print("Numbers only, please.")
-            continue
 
     time.sleep(0.5)
     print("You entered:", expiry_year)
@@ -294,12 +319,10 @@ minutes you'd like to purchase.
 Max purchase is 120 mins. Min purchase is 5 mins: """))
             if 5 <= minutes <= 120:  # Check for a valid range
                 valid_minutes = 1
-                continue
             else:
                 print("Enter a number between 5 and 120.")
         except ValueError:
             print("Numbers only, please.")
-            continue
 
     valid_minutes = 1
     GetTime(minutes)
@@ -324,19 +347,20 @@ def get_valid_email():
 def validate_password(email):
     while True:
         password = input("Enter password: ")
-        conf_pwd = input("Confirm password: ")
-        if len(password) >= 6 and conf_pwd == password:
-            with open("login_details.txt", "w") as f:
-                f.write(email + "\n" + password)
-            f.close()
-            print("You're now successfully registered.")
-            time.sleep(0.5)
-            return password
-        elif len(password) < 6:
-            print("Password must be at least 6 characters long.")
+        
+        if 6 <= len(password) <= 12:
+            conf_pwd = input("Confirm password: ")
+            if conf_pwd == password:
+                with open("login_details.txt", "a") as f:
+                    f.write(email + "\n" + password + "\n")
+                print("You're now successfully registered.")
+                time.sleep(0.5)
+                return password
+            else:
+                print("\nPasswords don't match. Please try again.\n")
+                time.sleep(0.5)
         else:
-            print("\nPasswords don't match. Please try again.\n")
-            time.sleep(0.5)
+            print("Password must be between 6 and 12 characters long.")
 
 
 def register():
@@ -390,7 +414,6 @@ def loggedin():
 
 
 def intro():
-    welcome()
     open_menu()
 
 
