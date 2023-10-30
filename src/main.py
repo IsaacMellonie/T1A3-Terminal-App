@@ -131,6 +131,10 @@ Please try again.\n""")  # error message
                     continue
 
 
+# One option the user is given after entering the app.
+# Login first check credentials with a while loop.
+# Login_credentials.txt gets opened and then it splits
+# the 2 rows amking sure they match user input.
 def login():
     i = 1
     while i == 1:
@@ -156,6 +160,14 @@ def login():
             except Exception:
                 print("Please enter a number value 1 or 2.")
 
+
+
+# Checks if the credit card is valid. First, the CC number
+# must be 16 digits, numbers only. Second, the epiry month
+# runs through a loop until it's validated. This pattern is
+# applied to year too. Once that's completed, the function
+# displays another input field where the user inputs the
+# minutes for purchase. They must be between 5 and 120.
 def get_ticket():
     valid_card = 0
     while valid_card == 0:
@@ -258,6 +270,9 @@ def get_valid_email():
             print("Not a valid email address. Try again.")
 
 
+# Run through a while loop to confirm the user has input
+# matching passwords. THe txt file gets opened and checked.
+# If it matches the input, the function returns password.
 def validate_password(email):
     while True:
         password = input("Enter password: ")
@@ -276,6 +291,10 @@ def validate_password(email):
             time.sleep(0.5)
 
 
+# User input for email and password runs through separate
+# functions to be validated. Next the while loop collects
+# the user's info and when user confirms, it will write
+# to login_details.csv. as a dictionary. 
 def register():
     email = get_valid_email()
     password = validate_password(email)
@@ -314,6 +333,8 @@ Are these details correct?\n1 to continue.\n2 to try again: """))
                 print("Sorry, please enter either 1 to continue or 2 to try again.")
 
 
+# Once logged in this function requires user
+# input to to buy tickets or return to main.
 def loggedin():
     while True:
         try:
