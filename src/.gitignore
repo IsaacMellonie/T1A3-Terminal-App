@@ -15,3 +15,7 @@ test_calc.py
 test_main.py
 calc_time_date.py
 test_purchase.py
+dist
+build
+calc.py
+.vscode
