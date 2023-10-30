@@ -3,8 +3,6 @@ import time
 import email_system
 import get_user_info
 import re
-import csv
-import os
 from login_system import login
 from purchase import GetTime
 
@@ -42,7 +40,6 @@ def welcome():
         print("Good afternoon!\n")
     else:
         print("Good evening!\n")
-    pass
 
 
 # Main menu that appears when opening the application.
@@ -54,8 +51,7 @@ def welcome():
 # 3. Will navigate to a a forgot passord section.
 # The user will have to enter a password that matches
 # one that was created on signup. If the email doesn't
-# match or there isn't a user created yet then you'll
-# be prompted to create a new one.
+# match or there isn't a user created yet then 
 def open_menu():
     current_time = get_current_time()
     i = 0
@@ -87,7 +83,7 @@ Press 4 to exit.\n:..."""))
                         i = 0
                         subject = "Forgot Password"
                         body_text = (f"""Hi, this is the Parking Pal App.
-Your Password is {stored_pwd}.""")
+    Your Password is {stored_pwd}.""")
                         email_system.EmailSend(email_to, subject, body_text)
                         print(f"""Email has been sent to
     {email_to} with your password.""")
@@ -95,7 +91,7 @@ Your Password is {stored_pwd}.""")
                         break
                     else:
                         a = int(input("""That's not the email we have on record.
-1 to try again, 2 to reregister 3 to return to main menu:...\n"""))
+    1 to try again, 2 to reregister 3 to return to main menu:...\n"""))
                         while a == 1 or 2:
                             try:
                                 if a == 1:
@@ -110,121 +106,55 @@ Your Password is {stored_pwd}.""")
                                 ("Enter number 1, 2 or 3.")
             elif i == 4:  # exit the program
                 print("\nBye!\n")
-                exit()
+                quit()
             else:
                 print("""\nSorry, I don't recognize that input.
 Please try again.\n""")  # error message
                 time.sleep(1)
         except ValueError:
             print("\nOnly numbers accepted.")
-            i == 0
             time.sleep(0.5)
-    else:
-        while True:
-            try:
-                i = int(input("""Service is closed from 7:00pm to 7:00am.
-Enter 1 to register. Enter 2 to quit.\n:..."""))
-                if i == 1:
-                    register()
-                    print("Goodbye!")
-                    exit()
-                else:
-                    print("Goodbye!")
-                    exit()
-            except ValueError:
-                print("Must enter a number.")
-            pass
-
-
-# This login function handles the login process. Firstly, the user
-# must input a valid email that matches the one stored locally.
-# on login_details.txt. Next, the user must enter a password that
-# matches the one stored locally. If both of them match login will 
-# succeed. While the user does not meet these requirements, the code
-# loops, giving them another opportunity to match the email and 
-# passwor. Else they want to break out of the loop and return
-# to the main menu. If the user can satisy the requirements,
-# they'll pass to the next while loop.
-
-
-# def login():
-    while True:
-        email = get_valid_email()
-        pwd = input("Please enter your password:")
-
-        try:
-            with open("login_details.csv", "r") as file:
-                csv_reader = csv.DictReader(file)
-                for row in csv_reader:
-                    stored_email = row["email"]
-                    stored_pwd = row["password"]
-                    
-        except FileNotFoundError:
-            print("Error: File 'login_details.csv' not found.")
-
-        if email == stored_email and pwd == stored_pwd:
-            print("Logged in Successfully!\nYou can now buy a ticket.")
-            time.sleep(1)
-            get_ticket()
-            break  # Exit the loop on successful login
         else:
-            answer = input("\nLogin failed! Try again? (1 for yes, 2 for no): ")
-            try:
-                answer = int(answer)
-                if answer == 1:
-                    continue  # Retry login
-                elif answer == 2:
-                    intro()
-                    break  # Exit the loop on user's choice
-                else:
-                    print("Invalid choice. Please enter 1 or 2.")
-            except ValueError:
-                print("Please enter a number value (1 or 2).")
-            pass
+            while True:
+                try:
+                    i = int(input("""Service is closed from 7:00pm to 7:00am.
+    Enter 1 to register. Enter 2 to quit.\n:..."""))
+                    if i == 1:
+                        register()
+                        print("Goodbye!")
+                        quit()
+                    else:
+                        print("Goodbye!")
+                        quit()
+                except ValueError:
+                    print("Must enter a number.")
+                    continue
 
 
 def login():
-    stored_email = None
-    stored_pwd = None
-    
-    while True:
-        email = get_valid_email()
-        pwd = input("Please enter your password:")
-
-        try:
-            with open("login_details.csv", "r") as file:
-                csv_reader = csv.DictReader(file)
-                for row in csv_reader:
-                    if 'email' in row and 'password' in row:
-                        stored_email = row['email']
-                        stored_pwd = row['password']
-                        break  # Only read the first row
-        except FileNotFoundError:
-            print("Error: File 'login_details.csv' not found.")
-            return  # Exit the function
-        email = email.strip()
-        pwd = pwd.strip()
-        stored_email = stored_email.strip()
-        stored_pwd = stored_pwd.strip()
+    i = 1
+    while i == 1:
+        email = input("Enter email address: ")
+        pwd = input("Enter password: ")
+        with open("login_details.txt", "r") as f:
+            stored_email, stored_pwd = f.read().split("\n")
+            f.close()
         if email == stored_email and pwd == stored_pwd:
             print("Logged in Successfully!\nYou can now buy a ticket.")
             time.sleep(1)
             get_ticket()
-            break  # Exit the loop on successful login
         else:
-            answer = input("\nLogin failed! Try again? (1 for yes, 2 for no): ")
+            i == 0
+            answer = int(input("""\nLogin failed! Try again?
+1 for yes 2 for no.\n:..."""))
+            if answer == 1:
+                i == 1
+            elif answer == 2:
+                intro()
             try:
-                answer = int(answer)
-                if answer == 1:
-                    continue  # Retry login
-                elif answer == 2:
-                    intro()
-                    break  # Exit the loop on the user's choice
-                else:
-                    print("Invalid choice. Please enter 1 or 2.")
-            except ValueError:
-                print("Please enter a number value (1 or 2).")
-
+                pass
+            except Exception:
+                print("Please enter a number value 1 or 2.")
 
 def get_ticket():
     valid_card = 0
@@ -261,7 +191,6 @@ def get_ticket():
         pass
         
     time.sleep(0.5)
-    print("You entered:", expiry_month)
     valid_month = 1
 
     valid_year = 0
@@ -288,16 +217,27 @@ def get_ticket():
 minutes you'd like to purchase.
 Max purchase is 120 mins. Min purchase is 5 mins: """))
             if 5 <= minutes <= 120:  # Check for a valid range
+                print(f"\nYou entered {minutes} minutes.\n")
+                time.sleep(1)
                 valid_minutes = 1
+            elif minutes <= 5:
+                print("\nMust enter more than 5 mins.\n")
+                time.sleep(0.5)
+            elif minutes >= 120:
+                print("\nMust enter less than 120 mins.\n")
+                time.sleep(0.5)
             else:
-                print("Enter a number between 5 and 120.")
+                print("\nEnter a number between 5 and 120.\n")
+                time.sleep(0.5)
         except ValueError:
-            print("Numbers only, please.")
+            print("\nNumbers only, please.\n")
+            time.sleep(0.5)
 
     valid_minutes = 1
     GetTime(minutes)
     time.sleep(3)
     intro()
+
 
 # Use Regular Expressions (re) module to check whether the
 # email address is legitimate.
@@ -316,55 +256,29 @@ def get_valid_email():
             return email
         else:
             print("Not a valid email address. Try again.")
-        pass
 
 
 def validate_password(email):
     while True:
         password = input("Enter password: ")
-        
-        if 6 <= len(password) <= 12:
-            conf_pwd = input("Confirm password: ")
-            if conf_pwd == password:
-                with open("login_details.txt", "w") as f:
-                    f.write(email + "\n" + password + "\n")
-                print("You're now successfully registered.")
-                time.sleep(0.5)
-                return password
-            else:
-                print("\nPasswords don't match. Please try again.\n")
-                time.sleep(0.5)
+        conf_pwd = input("Confirm password: ")
+        if len(password) >= 6 and conf_pwd == password:
+            with open("login_details.txt", "w") as f:
+                f.write(email + "\n" + password)
+            f.close()
+            print("You're now successfully registered.")
+            time.sleep(0.5)
+            return password
+        elif len(password) < 6:
+            print("Password must be at least 6 characters long.")
         else:
-            print("Password must be between 6 and 12 characters long.")
-
-
-
-def create_csv():
-    records_filename = "login_details_enhanced.csv"
-    def create_records_csv(records_filename):
-        if not os.path.exists(records_filename):
-            with open(records_filename, 'w', newline="") as file:
-                csvwriter = csv.writer(file)
-                print("Creating a header row for the file")
-                csvwriter.writerow([
-                    "email",
-                    "password", 
-                    "first", 
-                    "last", 
-                    "rego", 
-                    "ticket",
-                ])
-                print(f"Created a .CSV file to store employee data named {records_filename}")
-        else:
-            pass
-    create_records_csv(records_filename)
+            print("\nPasswords don't match. Please try again.\n")
+            time.sleep(0.5)
 
 
 def register():
-    create_csv()
     email = get_valid_email()
     password = validate_password(email)
-    
     while True:
         new_user = get_user_info.CreateUser(email,
                                             password,
@@ -415,8 +329,5 @@ def loggedin():
 def intro():
     open_menu()
 
-create_csv()
-intro()
 
-# if __name__ == "__main__":
-#   intro()
+intro()
