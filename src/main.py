@@ -338,6 +338,7 @@ def validate_password(email):
             print("Password must be between 6 and 12 characters long.")
 
 
+
 def create_csv():
     records_filename = "login_details_enhanced.csv"
     def create_records_csv(records_filename):
@@ -360,8 +361,10 @@ def create_csv():
 
 
 def register():
+    create_csv()
     email = get_valid_email()
     password = validate_password(email)
+    
     while True:
         new_user = get_user_info.CreateUser(email,
                                             password,
@@ -412,7 +415,7 @@ def loggedin():
 def intro():
     open_menu()
 
-
+create_csv()
 intro()
 
 # if __name__ == "__main__":
