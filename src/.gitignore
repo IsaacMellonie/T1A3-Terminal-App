@@ -14,3 +14,4 @@ create_csv.py
 test_calc.py
 test_main.py
 calc_time_date.py
+test_purchase.py
