@@ -35,8 +35,10 @@ This feature allows for recall of data when it's needed after signup. This is an
 <img src="./docs/implementation/feature-PaymentSystem-checklist-02.jpg" alt="Checklist-03">
 <img src="./docs/implementation/feature-StoreInfo-checklist-02.jpg" alt="Checklist-04">
 
+<h2>Requirements</h2>
+Have Python 3.10 or newer installed.
 
-<h2>Getting Started</h2>
+<h2>Installation and Instructions</h2>
 <p>
 First of all, we want to create a new email acount using Gmail. This will be specificailly used for emailing from the application in Python. Then follow the steps below to complete the setup process.
 </p>
@@ -45,26 +47,38 @@ First of all, we want to create a new email acount using Gmail. This will be spe
 You can use your existing gmail account or make a new gmail account depending on what you prefer. Once you've decided, you'll have to turn on 2 factor authentication and create an App Password.
 <br>
 <br>
-<ol type = "a">
-<li><img src="./docs/01-setup.jpg"></li>
-<li><img src="./docs/02-setup.jpg"></li>
-<li><img src="./docs/03-setup.jpg"></li>
-<li><img src="./docs/04-setup.jpg"></li>
-<li><img src="./docs/05-setup.jpg"></li>
-</ol>
-</li>
-<li>
-In the email_setup.py file, paste your email address and password. This will be used in the main file and without it the emailing function won't work.
-</li>
-<li>
 
-</li>
-</ol>
+- <img src="./docs/01-setup.jpg">
+1. Use a Gmail account and go to "Manage your Google Account."
+- <img src="./docs/02-setup.jpg">
+2. Next, go into Security
+- <img src="./docs/03-setup.jpg">
+3. Turn on 2 step verification if it isn't already
+- <img src="./docs/04-setup.jpg">
+4. Go into App Passwords
+- <img src="./docs/05-setup.jpg">
+5. Create a new App password and name it something to do with the application.
+A pop up will appear. Copy the generated password.
+- <img src="./docs/06-setup.jpg">
+6. Paste the password into "email_setup.py" where it says "password". Then type in your gmail adress where it says gmail. 
+Make sure to leave the quotation marks around your input. This will be used in the main file and without it the emailing function won't work in the app.
 
+<h2>Final Thoughts</h2>
 
+On reflection I would have liked to include more features but ultimately ran out of time. I had problems understanding my own code toward the end of the assignment due to the structure and way I used inputs and outputs. It taught me a great deal about managing your code. Kepping it structured so that you can easily implement changes that won't break a larger piece of the overall feature. 
+<h2>References</h2>
 
-<h2>R5 Styleguide</h2>
+The provided references were crucial in the development of this application.
 
-<p>This project adheres to PEP 8 styling conventions. This is the styling convention I've been using since first learning to code in Python so I'll continue to use it.</p>
+- Super User. (n.d.). How to set the default program for opening files without an extension in Windows? [online] Available at: https://superuser.com/questions/13653/how-to-set-the-default-program-for-opening-files-without-an-extension-in-windows [Accessed 30 Oct. 2023].
 
+- ‌Bagban, M. (2021). A Basic Login System with Python. [online] Medium. Available at: https://medium.com/@moinahmedbgbn/a-basic-login-system-with-python-746a64dc88d6.
+
+- Training, P. (2022). Guide to Turn .py Files into .exe. [online] Pierian Training. Available at: https://pieriantraining.com/how-to-convert-a-py-script-into-a-exe-file/ [Accessed 30 Oct. 2023].
+
+- PyPI. (n.d.). pyinstaller: PyInstaller bundles a Python application and all its dependencies into a single package. [online] Available at: https://pypi.org/project/pyinstaller/.
+
+- Stack Overflow (2022). Stack Overflow - Where Developers Learn, Share, & Build Careers. [online] Stack Overflow. Available at: https://stackoverflow.com/.
+
+- pyinstaller.org. (n.d.). How to Install PyInstaller — PyInstaller 5.9.0 documentation. [online] Available at: https://pyinstaller.org/en/stable/installation.html.
 
