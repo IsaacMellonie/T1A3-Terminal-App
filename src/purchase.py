@@ -1,5 +1,5 @@
 import datetime
-from datetime import timedelta
+from datetime import timedelta # use date time in the function GetTime
 
 
 class GetTime():
