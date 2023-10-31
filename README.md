@@ -21,6 +21,8 @@ Registration allows the user to access the sign in and then purchase tickets. It
 This feature allows for recall of data when it's needed after signup. This is an important feature for user's that may forget their information and need to have the password sent to them. FIrstly, they'll enter the password via the terminal, and if it matches the one kept on the local file the email will go through the emailing system created to connect to an ssl port, then using an smtp gmail server, will send the password. 
 
 <h2>Implementation Plan</h2>
+This was my initial planning for the app.
+<img src="./docs/implementation/flowchart_parking_app.jpeg" alt="Planning">
 <img src="./docs/implementation/01.jpg" alt="Step 1">
 <img src="./docs/implementation/02.jpg" alt="Step 2">
 <img src="./docs/implementation/03.jpg" alt="Step 3">
@@ -30,14 +32,21 @@ This feature allows for recall of data when it's needed after signup. This is an
 <img src="./docs/implementation/07.jpg" alt="Step 7">
 <img src="./docs/implementation/08.jpg" alt="Step 8">
 <img src="./docs/implementation/09.jpg" alt="Step 9">
+<br>
+<h2>Features</h2>
 <img src="./docs/implementation/feature-datetime-checklist-02.jpg" alt="Checklist-01">
 <img src="./docs/implementation/feature-Email-SSL-SMTPLIB-checklist-02.jpg" alt="Checklist-02">
 <img src="./docs/implementation/feature-PaymentSystem-checklist-02.jpg" alt="Checklist-03">
 <img src="./docs/implementation/feature-StoreInfo-checklist-02.jpg" alt="Checklist-04">
 
 <h2>Requirements</h2>
-Have Python 3.10 or newer installed.
+<p>
 
+- Have Python 3.10 or newer installed.
+- Have pytest installed.
+- Windows with Linux subsystem intalled.
+
+</p>
 <h2>Installation and Instructions</h2>
 <p>
 First of all, we want to create a new email acount using Gmail. This will be specificailly used for emailing from the application in Python. Then follow the steps below to complete the setup process.
@@ -60,12 +69,21 @@ You can use your existing gmail account or make a new gmail account depending on
 5. Create a new App password and name it something to do with the application.
 A pop up will appear. Copy the generated password.
 - <img src="./docs/06-setup.jpg">
-6. Paste the password into "email_setup.py" where it says "password". Then type in your gmail adress where it says gmail. 
-Make sure to leave the quotation marks around your input. This will be used in the main file and without it the emailing function won't work in the app.
-
+6. Paste the password into "email_setup.py" where it says "password". Then type in your gmail adress where it says "gmail". Make sure to leave the quotation marks around your input. This will be used in the main file and without it the emailing function won't work in the app.
+- <img src="./docs/07-setup.jpg" alt="step-7">
+7. Download a ZIP from the GitHub repository and unpack it on your local machine. The src folder contains all of the python files and the shell script fro running the application.
+- <img src="./docs/08-setup.jpg" alt="step-8">
+8. Next, you'll need to have Linux installed to execute "run_python_file.sh". On windows, go to the search bar and type in Linux. Install "Windows Subsystem for Linux" on your machine.
+- <img src="./docs/09-setup.jpg" alt="step-9">
+9. Open up the newly installed app and navigate to where the files are located. Open up the "src" folder and locate "run_python_script.py".
+10. Run Windows Subsytem for Linux
+11. Make sure the project folder is located on the Windows SubSystem. Ge the location of the folder from teh finder window. You'll need this to navigate to the src folder.
+This can be done by typing "cd <folder_name>/<folder_name>/IsaacEveansMellonieT1A3/src" and tehn hit enter.
+12. Now that we're located in the project folder, start the app by typing "sh run_python_script.sh" into the terminal window and hit enter. The app should begin.
 <h2>Final Thoughts</h2>
 
-On reflection I would have liked to include more features but ultimately ran out of time. I had problems understanding my own code toward the end of the assignment due to the structure and way I used inputs and outputs. It taught me a great deal about managing your code. Kepping it structured so that you can easily implement changes that won't break a larger piece of the overall feature. 
+On reflection I would have liked to include more features but was limited for time and my own level of knowledge. I had difficulty understanding my own code toward the end of the assignment due to the structure and way I used inputs and outputs. It taught me a great deal about managing your code. I learned it's important to keep it structured so that you can easily implement changes that won't break a larger piece of the overall feature. 
+
 <h2>References</h2>
 
 The provided references were crucial in the development of this application.
@@ -82,3 +100,18 @@ The provided references were crucial in the development of this application.
 
 - pyinstaller.org. (n.d.). How to Install PyInstaller — PyInstaller 5.9.0 documentation. [online] Available at: https://pyinstaller.org/en/stable/installation.html.
 
+- Santos, A.B. (n.d.). How to Run .sh or Shell Script File in Windows 11/10. [online] SoftwareKeep. Available at: https://softwarekeep.com/help-center/how-to-run-shell-script-file-in-windows [Accessed 31 Oct. 2023].
+
+- Mata, Y. (2021). ‘Python’ is not recognized as an internal or external command, operable program or batch file. [online] Career Karma. Available at: https://careerkarma.com/blog/python-is-not-recognized-error/#:~:text=What%20is%20causing%20the%20 [Accessed 31 Oct. 2023].
+
+- Stack Overflow. (n.d.). ubuntu linux gmsh gives ‘sh: 1: python: not found’ error. [online] Available at: https://stackoverflow.com/questions/73221704/ubuntu-linux-gmsh-gives-sh-1-python-not-found-error [Accessed 31 Oct. 2023].
+
+- mspoweruser.com. (2022). How to Run Shell Script in Windows. [online] Available at: https://mspoweruser.com/different-ways-to-run-shell-script-files-on-windows/ [Accessed 31 Oct. 2023].
+
+- Mailtrap. Src=’https://Secure.gravatar.com/Avatar/4c785e9c0ddf669441d6884fc9c43624?s=57, img A., #038;d=mm and width =’57’ />Chris, 038;r=g’ class=’avatar avatar-57 photo’ height=’57’ (2022). Sending Emails in Python [2023 Guide with Code Examples]. [online] mailtrap.io. Available at: https://mailtrap.io/blog/python-send-email/.
+
+
+- Emailing system for Python. https://www.youtube.com/watch?v=Sddnn6dpqk0&list=PLM2E1SwuAVipIMG_KobekbvBd9I7NvwXP&index=12&t=647s&ab_channel=TheIntriguedEngineer
+‌
+
+‌
