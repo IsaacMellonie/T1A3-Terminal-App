@@ -2,7 +2,6 @@
 .DS_Store
 __pycache__
 login.py
-email_setup.py
 credentials.txt
 test.py
 login_details.txt
