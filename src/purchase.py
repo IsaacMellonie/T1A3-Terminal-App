@@ -4,10 +4,10 @@ from datetime import timedelta # use date time in the function GetTime
 
 class GetTime():
     def __init__(self, time):
-        if 5 >= time:
+        if 5 > time:
             print("Number less than 5. Rounding up.")
             time = 5
-        elif 120 <= time:
+        elif 120 < time:
             print("Number more than 120. Rounding down.")
             time = 120
         charge = time * 0.25

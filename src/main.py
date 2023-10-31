@@ -86,7 +86,7 @@ Press 4 to exit.\n:..."""))
 Your Password is {stored_pwd}.""")
                         email_system.EmailSend(email_to, subject, body_text)
                         print(f"""Email has been sent to
-    {email_to} with your password.""")
+{email_to} with your password.""")
                         intro()
                         break
                     else:
