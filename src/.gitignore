@@ -17,3 +17,10 @@ test_purchase.py
 calc.py
 .vscode
 build
+.dockerignore
+docker-compose.debug.yml
+docker-compose.yml
+Dockerfile
+run_python_script.bat
+.vscode
+run_python_script.bat
