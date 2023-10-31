@@ -8,7 +8,7 @@ from purchase import GetTime
 
 
 # Format date and time for display in a readable format. 
-# This will also deisplay in a 12hr format instead of 24hr.
+# This will also display in a 12hr format instead of 24hr.
 def time_date():
     today_date = datetime.datetime.now()
     formatted_date = today_date.strftime("\n%d/%m/%Y \n%-I:%M %p")
@@ -83,7 +83,7 @@ Press 4 to exit.\n:..."""))
                         i = 0
                         subject = "Forgot Password"
                         body_text = (f"""Hi, this is the Parking Pal App.
-    Your Password is {stored_pwd}.""")
+Your Password is {stored_pwd}.""")
                         email_system.EmailSend(email_to, subject, body_text)
                         print(f"""Email has been sent to
     {email_to} with your password.""")
@@ -91,7 +91,7 @@ Press 4 to exit.\n:..."""))
                         break
                     else:
                         a = int(input("""That's not the email we have on record.
-    1 to try again, 2 to reregister 3 to return to main menu:...\n"""))
+1 to try again, 2 to reregister 3 to return to main menu:...\n"""))
                         while a == 1 or 2:
                             try:
                                 if a == 1:
@@ -112,23 +112,24 @@ Press 4 to exit.\n:..."""))
 Please try again.\n""")  # error message
                 time.sleep(1)
         except ValueError:
-            print("\nOnly numbers accepted.")
-            time.sleep(0.5)
-        else:
-            while True:
-                try:
-                    i = int(input("""Service is closed from 7:00pm to 7:00am.
-    Enter 1 to register. Enter 2 to quit.\n:..."""))
-                    if i == 1:
-                        register()
-                        print("Goodbye!")
-                        quit()
-                    else:
-                        print("Goodbye!")
-                        quit()
-                except ValueError:
-                    print("Must enter a number.")
-                    continue
+            print("\nNumbers only, please.")
+            time.sleep(1)
+    else:
+        
+        while True:
+            try:
+                time_date()
+                welcome()
+                i = int(input("""Service is closed from 7:00pm to 7:00am.
+Enter 1 to register. Enter 2 to quit.\n:..."""))
+                if i == 1:
+                    register()
+                else:
+                    print("\nGoodbye!\n")
+                    quit()
+            except ValueError:
+                print("Must enter a number.")
+                continue
 
 
 # One option the user is given after entering the app.
