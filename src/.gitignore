@@ -4,8 +4,6 @@ __pycache__
 login.py
 credentials.txt
 test.py
-login_details.txt
-login_details.csv
 login_details_enhanced.csv
 create_csv.py
 .vscode
