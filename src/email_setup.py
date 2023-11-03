@@ -1,2 +1,2 @@
-my_email = "isaac.e.mellonie@gmail.com" # <<< Put your own Gmail here
-my_password = "wqeo zdcs xgdz skaa" # <<< Put your own password here
+my_email = "gmail" # <<< Put your own Gmail here
+my_password = "password" # <<< Put your own password here
